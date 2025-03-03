@@ -1,30 +1,43 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const button = document.getElementById("generate-password");
-  const passwordList = document.getElementById("password-list");
+function generarContraseña() {
+    const nombre = document.getElementById("nombre").value.trim();
 
-  button.addEventListener("click", function () {
-      const password = generatePassword();
-      const listItem = document.createElement("li");
-      listItem.textContent = password;
-      passwordList.appendChild(listItem);
-  });
-});
+    if (nombre.length < 5) {
+        alert("El nombre debe tener al menos 5 letras.");
+        return;
+    }
 
-function generatePassword() {
-  const upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  const lowerCase = "abcdefghijklmnopqrstuvwxyz";
-  const numbers = "0123456789";
-  const specialChars = "!@#$%^&*()-_=+[]{}|;:,.<>?/";
-  const allChars = upperCase + lowerCase + numbers + specialChars;
+    // Seleccionar 5 letras aleatorias del nombre
+    let letras = "";
+    let indicesUsados = new Set();
+    while (letras.length < 5) {
+        let indice = Math.floor(Math.random() * nombre.length);
+        if (!indicesUsados.has(indice)) {
+            letras += nombre[indice];
+            indicesUsados.add(indice);
+        }
+    }
 
-  let password = "";
+    // Convertir algunas letras a mayúsculas aleatoriamente
+    letras = letras.split("").map(letra => Math.random() > 0.5 ? letra.toUpperCase() : letra).join("");
 
-  while (password.length < 8) {
-      const char = allChars[Math.floor(Math.random() * allChars.length)];
-      
-      if (password.length > 1 && password[password.length - 1] === char && password[password.length - 2] === char) {
-          continue; // Evita más de 2 caracteres consecutivos iguales
-      }
+    // Caracteres posibles
+    const numeros = "0123456789";
+    const especiales = "!@#$%^&*()-_=+<>?/";
+
+    // Agregar 2 números y 1 carácter especial aleatorio
+    let num1 = numeros[Math.floor(Math.random() * numeros.length)];
+    let num2 = numeros[Math.floor(Math.random() * numeros.length)];
+    let especial = especiales[Math.floor(Math.random() * especiales.length)];
+
+    // Mezclar los caracteres
+    let contraseña = (letras + num1 + num2 + especial).split("").sort(() => Math.random() - 0.5).join("");
+
+    // Mostrar en pantalla
+    const lista = document.getElementById("listaContraseñas");
+    const item = document.createElement("li");
+    item.innerHTML = `<span class="password">${contraseña}</span>`;
+    lista.appendChild(item);
+}
       
       password += char;
   }
