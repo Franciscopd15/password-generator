@@ -8,28 +8,31 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            margin: 20px;
+            margin: 50px;
         }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
+        input, button {
+            padding: 10px;
+            margin: 5px;
         }
-        ul {
-            list-style-type: none;
-            padding: 0;
+        #listaContraseñas {
+            margin-top: 20px;
+            text-align: left;
+            display: inline-block;
         }
-        li {
-            font-size: 18px;
-            margin: 5px 0;
+        .password {
+            font-weight: bold;
+            color: #007bff;
         }
     </style>
 </head>
 <body>
-    <h1>Generador de Contraseñas</h1>
-    <button id="generate-password">Generar Nueva Contraseña</button>
-    <ul id="password-list"></ul>
 
+    <h2>Generador de Contraseñas Seguras</h2>
+    <input type="text" id="nombre" placeholder="Ingresa tu nombre">
+    <button onclick="generarContraseña()">Generar Nueva Contraseña</button>
+
+    <h3>Contraseñas Generadas:</h3>
+    <ul id="listaContraseñas"></ul>
     <script src="app.js"></script>
 </body>
 </html>
